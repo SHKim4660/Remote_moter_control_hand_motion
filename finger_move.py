@@ -67,6 +67,14 @@ while True:
                 serial_data.write(b'3')
                 print("3")
 
+            if fingers[3] == 1:
+                serial_data.write(b'4')
+                print("4")
+
+            if fingers[3] != 1:
+                serial_data.write(b'5')
+                print("5")
+
         cTime = time.time()
         fps = 1/(cTime-pTime)
         pTime = cTime

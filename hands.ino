@@ -25,4 +25,10 @@ void loop() {
       servo2.write(0);
     }
 
+    if(userInput == '4'){
+      servo2.write(180);
+    }
+    else if(userInput == '5'){
+      servo2.write(0);
+    }
 }
