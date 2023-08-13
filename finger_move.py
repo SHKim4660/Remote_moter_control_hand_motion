@@ -41,6 +41,7 @@ while True:
         if len(lmList)!=0:
             x1,y1 = lmList[8][1:]
             x2,y2 = lmList[12][1:]
+            x3,y3 = lmList[16][1:]
 
             # print(x1,y1,x2,y2)
 
@@ -68,6 +69,7 @@ while True:
                 print("3")
 
             if fingers[3] == 1:
+                cv2.circle(img,(x3,y3),15,(0,0,255),cv2.FILLED)
                 serial_data.write(b'4')
                 print("4")
 

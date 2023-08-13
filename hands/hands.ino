@@ -2,11 +2,13 @@ char userInput;
 #include <Servo.h>
 Servo servo1;
 Servo servo2;
+Servo servo3;
 
 void setup() {
   Serial.begin(9600);
   servo1.attach(15);
   servo2.attach(2);
+  servo3.attach(4);
 }
 
 void loop() {
@@ -26,9 +28,9 @@ void loop() {
     }
 
     if(userInput == '4'){
-      servo2.write(180);
+      servo3.write(180);
     }
     else if(userInput == '5'){
-      servo2.write(0);
+      servo3.write(0);
     }
 }
