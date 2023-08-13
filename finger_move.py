@@ -5,6 +5,12 @@ import numpy as np
 import hand_traking_module as htm
 import time
 import autopy
+import serial
+
+serial_data = serial.Serial('com9',9600)
+
+fingerone = False
+fingertwo = False
 
 ################################
 wCam,hCam =640,480
@@ -41,30 +47,25 @@ while True:
             fingers = detector.fingersUp()
             # print(fingers)
             # cv2.rectangle(img,(frameR,0),(wCam-frameR,hCam-frameR*2),(255,0,255),2)
-            cv2.rectangle(img,(frameR,frameR),(wCam-frameR,hCam-frameR),(255,0,255),2)
+            # cv2.rectangle(img,(frameR,frameR),(wCam-frameR,hCam-frameR),(255,0,255),2)
 
-            if fingers[1] == 1 and fingers[2] == 0:
-
-                x3 = np.interp(x1,(frameR,wCam-frameR),(0,wScr))
-                y3 = np.interp(y1,(frameR,hCam-frameR),(0,hScr))
-
-                colcX = plocX + (x3 - plocX)/smoothening
-                colcY = plocY + (x3 - plocY)/smoothening
-
-                autopy.mouse.move(x3,y3)
+            if fingers[1] == 1 :
                 cv2.circle(img,(x1,y1),15,(0,0,255),cv2.FILLED)
-                plocX,plocY = clocX,clocY
+                serial_data.write(b'0')
+                print("0")
 
-            if fingers[1] == 1 and fingers[2] == 1 and fingers[3] == 0:
+            if fingers[1] != 1:
+                serial_data.write(b'1')
+                print("1")
 
-                length,img,infoline=detector.findDistance(8,12,img)
-                print(length)
-                if length < 53:
-                    cv2.circle(img,(infoline[4],infoline[5]),15,(0,255,0),cv2.FILLED)
-                    autopy.mouse.click()
-
-
-
+            if fingers[2] == 1 :
+                cv2.circle(img,(x2,y2),15,(0,0,255),cv2.FILLED)
+                serial_data.write(b'2')
+                print("2")
+            
+            if fingers[2] != 1:
+                serial_data.write(b'3')
+                print("3")
 
         cTime = time.time()
         fps = 1/(cTime-pTime)
